@@ -1,28 +1,18 @@
-import type { CSSProperties } from "react";
-import { Link, Route, Routes } from "react-router-dom";
-import ViewResolver from "@/core/ui-renderer/ViewResolver";
+import { Route, Routes } from "react-router-dom";
+import MainLayout from "@/layout/MainLayout.tsx";
+import HomePage from "@/pages/HomePage.tsx";
+import NotFoundPage from "@/pages/NotFoundPage.tsx";
 import RouterTestPage from "@/pages/RouterTestPage.tsx";
-
-const navStyle: CSSProperties = {
-  display: "flex",
-  gap: "12px",
-  padding: "12px 16px",
-  borderBottom: "1px solid #f0f0f0",
-};
 
 const AppRouter = () => {
   return (
-    <>
-      <nav style={navStyle}>
-        <Link to="/">Home</Link>
-        <Link to="/router-test">Router Test</Link>
-      </nav>
-
-      <Routes>
-        <Route path="/" element={<ViewResolver view="home" name="test" />} />
-        <Route path="/router-test" element={<RouterTestPage />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="router-test" element={<RouterTestPage />} />
+      </Route>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 };
 
