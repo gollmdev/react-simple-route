@@ -1,7 +1,10 @@
 import type { CSSProperties } from "react";
-import { Switch } from "antd";
+import { Select, Switch } from "antd";
 import { Link, Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useThemeStore } from "@/store/theme.store";
+import { useLocaleStore } from "@/store/locale.store";
+import { type AppLocale } from "@/i18n/resources";
 
 const containerStyle: CSSProperties = {
   minHeight: "100vh",
@@ -31,24 +34,39 @@ const spacerStyle: CSSProperties = {
 };
 
 const MainLayout = () => {
+  const { t } = useTranslation();
   const mode = useThemeStore((state) => state.mode);
   const toggleTheme = useThemeStore((state) => state.toggleTheme);
+  const locale = useLocaleStore((state) => state.locale);
+  const setLocale = useLocaleStore((state) => state.setLocale);
+
+  const languageOptions = [
+    { label: t("language.en"), value: "en" },
+    { label: t("language.zhCN"), value: "zh-CN" },
+  ];
 
   return (
     <div style={containerStyle}>
       <nav style={navStyle}>
         <Link to="/" style={linkStyle}>
-          Home
+          {t("nav.home")}
         </Link>
         <Link to="/router-test" style={linkStyle}>
-          Router Test
+          {t("nav.routerTest")}
         </Link>
         <div style={spacerStyle} />
+        <Select
+          value={locale}
+          onChange={(value) => setLocale(value as AppLocale)}
+          options={languageOptions}
+          style={{ minWidth: 120 }}
+          aria-label={t("language.label")}
+        />
         <Switch
           checked={mode === "dark"}
           onChange={toggleTheme}
-          checkedChildren="Dark"
-          unCheckedChildren="Light"
+          checkedChildren={t("nav.themeDark")}
+          unCheckedChildren={t("nav.themeLight")}
         />
       </nav>
 

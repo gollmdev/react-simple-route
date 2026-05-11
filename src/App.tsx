@@ -4,9 +4,12 @@ import { ConfigProvider, theme as antdTheme } from "antd";
 import { HashRouter } from "react-router-dom";
 import AppRouter from "./routes/AppRouter.tsx";
 import { useThemeStore } from "@/store/theme.store";
+import { useLocaleStore } from "@/store/locale.store";
+import i18n from "@/i18n/i18n";
 
 function App() {
   const mode = useThemeStore((state) => state.mode);
+  const locale = useLocaleStore((state) => state.locale);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", mode);
@@ -16,6 +19,10 @@ function App() {
       loading.remove();
     }
   }, [mode]);
+
+  useEffect(() => {
+    void i18n.changeLanguage(locale);
+  }, [locale]);
 
   return (
     <ConfigProvider
