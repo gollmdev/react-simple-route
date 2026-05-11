@@ -6,6 +6,7 @@ interface HomeProps {
 
 const Home: FC<HomeProps> = ({ name }) => {
     return <>
+   
     Home {name}
     </>
 }

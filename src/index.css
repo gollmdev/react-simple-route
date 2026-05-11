@@ -1,4 +1,24 @@
-body,html{
+:root {
+  --app-bg: #f7f9fc;
+  --app-text: #171717;
+  --app-border: #d9e0ea;
+}
+
+html[data-theme="dark"] {
+  --app-bg: #111317;
+  --app-text: #f3f5f7;
+  --app-border: #2a313a;
+}
+
+html,
+body {
   margin: 0;
   padding: 0;
+  background: var(--app-bg);
+  color: var(--app-text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+a {
+  color: inherit;
 }
