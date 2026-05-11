@@ -1,13 +1,151 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ai-agent-ui</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ai-agent-ui</title>
+  <style>
+    /* html {
+      scrollbar-gutter: stable;
+    } */
+
+    body {
+      overflow-y: scroll;
+      /* 永远显示垂直滚动条，占位防抖 */
+    }
+
+    .screen {
+      width: 98vw;
+      height: 97vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-container {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      transform: rotate(45deg);
+      animation: preloader 1.2s infinite linear;
+    }
+
+    .loading-container i {
+      width: 12px;
+      height: 12px;
+      position: absolute;
+      background: #1890ff;
+      border-radius: 100%;
+      display: block;
+      transform-origin: 50% 50%;
+      opacity: .3;
+      animation: preloader_i 1.2s infinite linear;
+    }
+
+    .loading-container i:nth-child(1) {
+      top: 0;
+      left: 0;
+    }
+
+    .loading-container i:nth-child(2) {
+      top: 0;
+      right: 0;
+      animation-delay: 0.4s;
+    }
+
+    .loading-container i:nth-child(3) {
+      right: 0;
+      bottom: 0;
+      animation-delay: 0.8s;
+    }
+
+    .loading-container i:nth-child(4) {
+      bottom: 0;
+      left: 0;
+      animation-delay: 1.2s;
+    }
+
+    @keyframes preloader {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes preloader_i {
+      0% {
+        opacity: .3;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: .3;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx">
+
+  </script>
+  <div id="global-loading"
+    style="position:fixed;z-index:9999;inset:0;display:flex;align-items:center;justify-content:center;background: #f7f9fc;color:#171717;transition:background 0.2s,color 0.2s;font-size:1.2rem;">
+    <div class="screen">
+      <div class="loading-container">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+    </div>
+  </div>
+  <script>
+    // 提前设置主题，防止闪白/黑
+    (function () {
+      var STORAGE_KEY = 'app-theme';
+      var getSystemTheme = function () {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      };
+      var mode = 'light';
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          if (parsed && parsed.state && (parsed.state.mode === 'dark' || parsed.state.mode === 'light')) {
+            mode = parsed.state.mode;
+          } else {
+            mode = getSystemTheme();
+          }
+        } else {
+          mode = getSystemTheme();
+        }
+      } catch (e) {
+        mode = getSystemTheme();
+      }
+      document.documentElement.setAttribute('data-theme', mode);
+      // 同步 loading 层颜色
+      var loading = document.getElementById('global-loading');
+      if (loading) {
+        if (mode === 'dark') {
+          loading.style.background = '#111317';
+          loading.style.color = '#f3f5f7';
+        } else {
+          loading.style.background = '#f7f9fc';
+          loading.style.color = '#171717';
+        }
+      }
+    })();
+  </script>
+</body>
+
 </html>

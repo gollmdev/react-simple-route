@@ -10,6 +10,11 @@ function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", mode);
+    // 移除全局 loading
+    const loading = document.getElementById("global-loading");
+    if (loading) {
+      loading.remove();
+    }
   }, [mode]);
 
   return (
