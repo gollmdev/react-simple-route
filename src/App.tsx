@@ -1,4 +1,5 @@
 import { Button } from "antd"
+import "@/core/component-registry/module-auto-loader";
 
 function App() {
 

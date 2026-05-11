@@ -2,7 +2,7 @@
 
 import { lazy } from "react";
 import type { ComponentType, LazyExoticComponent } from "react";
-import { LazyLoader, ViewRegistry } from "./registry-types";
+import type  { LazyLoader, ViewRegistry } from "./registry-types";
 import { componentRegistry } from "./ComponentRegistry";
 
 type ResolveRegisteredView<T> = T extends LazyExoticComponent<infer C>
