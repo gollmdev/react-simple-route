@@ -1,14 +1,13 @@
 import "@/core/component-registry/module-auto-loader";
-import ViewResolver from "./core/ui-renderer/ViewResolver";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./routes/AppRouter.tsx";
 
 function App() {
-
   return (
-    <>
-     {/* <Button type="primary">Button</Button> */}
-      <ViewResolver view="home" name="test" />
-    </>
-  )
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
