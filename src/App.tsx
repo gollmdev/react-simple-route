@@ -1,12 +1,12 @@
 import "@/core/component-registry/module-auto-loader";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import AppRouter from "./routes/AppRouter.tsx";
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AppRouter />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
