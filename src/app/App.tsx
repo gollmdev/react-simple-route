@@ -2,7 +2,7 @@ import "@/core/component-registry/module-auto-loader";
 import { useEffect } from "react";
 import { ConfigProvider, theme as antdTheme } from "antd";
 import { HashRouter } from "react-router-dom";
-import AppRouter from "./routes/AppRouter.tsx";
+import AppRouter from "../routes/AppRouter.tsx";
 import { useThemeStore } from "@/store/theme.store";
 import { useLocaleStore } from "@/store/locale.store";
 import i18n from "@/i18n/i18n";
